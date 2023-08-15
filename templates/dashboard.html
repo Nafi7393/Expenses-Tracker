@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+    <div class="header-contain">
+        <header>
+            <div class="header-left">
+                <!-- Show the username on the left side -->
+                {% if session['user_name'] %}
+                <p><span>Welcome,</span> <strong>{{ session['user_name'] }}</strong></p>
+                {% endif %}
+            </div>
+            <div class="header-right">
+                <!-- Logout button on the right side -->
+                <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+            </div>
+        </header>
+    </div>
+    <div class="container">
+        <div class="add-expense">
+            <h2>Add an Expense &rarr; <span>{{ session['date'] }}</span></h2>
+            <input type="text" id="reason" placeholder="Reason">
+            <input type="number" id="amount" placeholder="Amount">
+            <input type="hidden" id="user-id" value="{{ session['user_id'] }}">
+            <button id="add-btn">Add</button>
+        </div>
+        <div class="today-expenses">
+            <h2>Today's Expenses</h2>
+            <ul id="today-expenses-list"></ul>
+        </div>
+        <div class="last-7-days">
+            <h2>Last 7 Days' Expenses</h2>
+            <ul id="last-7-days-list"></ul>
+        </div>
+        <div class="all-months">
+            <h2>All Months' Expenses</h2>
+            <ul id="all-months-list">
+                <!-- The list items for each month will be dynamically added here -->
+            </ul>
+        </div>
+        <div class="selected-month-expenses" id="selected-month-header-id">
+            <h2 id="selected-month-header"></h2>
+            <ul id="selected-month-expenses-list"></ul>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2023 Expense Tracker. All rights reserved.
+    </footer>
+    <script src="{{ url_for('static', filename='dashboard.js') }}"> </script>
+</body>
+</html>

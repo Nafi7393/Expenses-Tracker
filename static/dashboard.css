@@ -1,0 +1,264 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+/* Add the following styles to position the elements */
+
+.header-contain {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+header {
+  display: flex;
+  color: #f9f9f9;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 700px;
+  width: 100%;
+  padding: 20px;
+  background-color: #007bff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-left {
+  flex: 1;
+}
+
+/* CSS for making the username bold and highlighted with a low opacity underline */
+.header-left p span {
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.6); /* Change the alpha value (last parameter) to adjust the opacity */
+  padding: 5px; /* Add padding to create a background highlight effect */
+  border-radius: 5px; /* Optional: Add rounded corners to the highlight */
+}
+
+
+
+.header-right {
+  flex: 1;
+  text-align: right;
+}
+
+.logout-button {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+}
+
+.logout-button:hover {
+  background-color: #0056b3;
+}
+
+
+
+.container {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container h2 {
+  margin: 10px 0;
+  color: #333;
+}
+
+.container h2 span {
+  color: #007bff;
+  font-size: 20px;
+}
+
+
+input[type="text"],
+input[type="number"] {
+  width: 80%;
+}
+
+
+input[type="text"],
+input[type="number"],
+button {
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#add-btn {
+  width: 200px;
+  margin-bottom: 80px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button.remove-button {
+  background-color: #dc3545; /* Red color */
+  color: #fff;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+li:hover {
+  background-color: #f0f0f0;
+}
+
+.date-expand, .month-expand {
+  font-weight: bold;
+  color: #3393ad;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  margin-right: 20px;
+}
+
+.date-expand:hover,
+.month-expand:hover {
+  text-decoration: underline;
+}
+
+.month-expand strong {
+  color: #096379;
+}
+
+
+.expenses-details, .date-expenses-details {
+  display: none;
+  margin-top: 10px;
+  padding: 10px 40px 10px 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  border-left: 2px solid #ccc;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.expenses-details.show {
+  display: block;
+}
+
+.today-expenses,
+.last-7-days,
+.all-months,
+.selected-month-expenses {
+  margin-bottom: 100px;
+}
+
+
+.expenses-list {
+  list-style: none;
+  display: none;
+  margin-top: 10px;
+  padding: 0;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.expense-list li {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.expense-name {
+  flex: 1;
+  text-align: left;
+}
+
+.expense-amount {
+  flex: 1;
+  text-align: right;
+}
+
+/* Add the "show" class to display the details */
+.expenses-details.show {
+  display: block;
+}
+
+/* Hide the details by default */
+.expenses-details {
+  display: none;
+}
+
+.selected-month-expenses ul ul li .date-expenses-details .expense-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.selected-month-expenses ul ul li .date-expenses-details .expense-item:hover {
+  background-color: #f0f0f0;
+}
+
+
+#selected-month-header strong {
+  color: #096379;
+  text-decoration: underline;
+}
+
+footer {
+  width: 80%;
+  text-align: center;
+  display: flex;
+  flex-direction: row; /* or column, depending on your content layout */
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid black;
+  color: #777;
+  font-size: 14px;
+  padding: 20px 10px 80px;
+  margin: 25px auto auto;
+}
+

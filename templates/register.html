@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration - Expense Tracker</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='register.css') }}">
+</head>
+<body>
+    <div class="header-contain">
+            <header>
+                <h1 id="home-link">Welcome to Expense Tracker</h1>
+                <p>Track and manage your expenses effortlessly.</p>
+            </header>
+    </div>
+  <div class="container">
+    <main>
+      <form id="registerForm" method="POST" action="/register">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+          {% if error and error_type == 'name' %}
+            <p class="error-message">{{ error }}</p>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+          {% if error and error_type == 'email' %}
+            <p class="error-message">{{ error }}</p>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button id="registerButton" type="submit">Register</button>
+      </form>
+      <p>Already have an account? <a href="/login">Login</a></p>
+    </main>
+        <footer>
+            &copy; 2023 Expense Tracker. All rights reserved.
+        </footer>
+  </div>
+
+    <script>
+        // JavaScript code to handle the click event
+        document.getElementById("home-link").addEventListener("click", function () {
+            window.location.href = "/"; // Replace "/home" with the appropriate Flask route for the home page
+        });
+    </script>
+</body>
+</html>

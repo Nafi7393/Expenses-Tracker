@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+    <div class="header-contain">
+            <header>
+                <h1 id="home-link">Welcome to Expense Tracker</h1>
+                <p>Track and manage your expenses effortlessly.</p>
+            </header>
+    </div>
+    <div class="container">
+        <main>
+            <div class="button-holder">
+                <a href="/login" class="btn btn-login">Login</a>
+                <a href="/register" class="btn btn-register">Register</a>
+            </div>
+            <p class="para">Manage your expenses effortlessly and stay on top of your budget with the user-friendly Expense Tracker. Whether you're tracking your daily spending or planning for the future, our intuitive app provides you with a seamless experience. Stay in control of your finances, and gain valuable insights into your expenditure patterns. With Expense Tracker, keeping track of your spending has never been easier. Let us handle the numbers while you focus on what truly matters – achieving your financial goals. Start your journey towards financial success today with Expense Tracker.</p>
+        </main>
+        <footer>
+            &copy; 2023 Expense Tracker. All rights reserved.
+        </footer>
+    </div>
+
+    <script>
+        // JavaScript code to handle the click event
+        document.getElementById("home-link").addEventListener("click", function () {
+            window.location.href = "/"; // Replace "/home" with the appropriate Flask route for the home page
+        });
+    </script>
+</body>
+</html>
