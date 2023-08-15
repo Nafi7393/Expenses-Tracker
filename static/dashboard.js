@@ -583,18 +583,21 @@ function loadAndRenderMonthlyChart(data) {
                         label: function (context) {
                             const label = context.dataset.label;
                             const value = context.parsed.y;
-                            let date;
-                            if (label === "Highest Expense Day (৳)") {
+                            let date = '';
+
+                            if (label === "Highest Expense") {
                                 date = highestDates[context.dataIndex];
-                            } else if (label === "Second Highest Expense Day (৳)") {
+                            } else if (label === "2nd Highest Expense") {
                                 date = secondHighestDates[context.dataIndex];
                             }
-                            if (date) {
+
+                            if (date && label !== "Total Expenses") {
                                 const dateObj = new Date(date);
                                 const options = { year: 'numeric', month: 'long', day: 'numeric' };
                                 date = dateObj.toLocaleDateString('en-US', options);
                             }
-                            return `${label}: ৳${value.toFixed(2)}\nDate: ${date || ""}`;
+
+                            return `${label}: ৳${value.toFixed(2)}${date ? `\nDate: ${date}` : ''}`;
                         },
                     },
                 },
