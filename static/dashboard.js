@@ -148,6 +148,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Attach event listeners to Last 7 Days expenses list
           attachLast7DaysListeners();
+          if (data.expenses.length > 0) {
+              loadAndRenderWeeklyBarChart(data);
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -297,6 +300,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 attachMonthExpandListeners();
                 attachDateExpandListenersMonth();
                 attachMonthItemClickListeners();
+
+                if (data.expenses.length > 0) {
+                    loadAndRenderMonthlyChart(data);
+                }
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -412,6 +419,192 @@ function handleDateExpandClickMonth(event) {
         expensesDetails.style.display = isVisible ? "none" : "block";
     }
 }
+
+
+
+
+// Function to load and render the bar chart
+function loadAndRenderWeeklyBarChart(data) {
+    const days = [];
+    const totalAmounts = [];
+    const highestAmounts = [];
+    const secondHighestAmounts = [];
+    const highestReasons = [];
+    const secondHighestReasons = [];
+
+    data.expenses.forEach((expense) => {
+        const date = new Date(expense.date).toLocaleDateString();
+        days.push(date);
+        totalAmounts.push(expense.totalAmount);
+
+        // Calculate highest and second highest expenses for each day
+        const expenses = expense.details.map((detail) => detail.amount);
+        expenses.sort((a, b) => b - a); // Sort in descending order
+        highestAmounts.push(expenses[0] || 0); // Highest expense or 0 if no expenses
+        secondHighestAmounts.push(expenses[1] || 0); // Second highest expense or 0 if no expenses
+
+        // Get reasons for highest and second highest expenses
+        const highestExpenseDetail = expense.details.find(detail => detail.amount === expenses[0]);
+        highestReasons.push(highestExpenseDetail ? highestExpenseDetail.reason : "");
+        const secondHighestExpenseDetail = expense.details.find(detail => detail.amount === expenses[1]);
+        secondHighestReasons.push(secondHighestExpenseDetail ? secondHighestExpenseDetail.reason : "");
+    });
+
+    // Create a bar chart using Chart.js
+    const ctx = document.getElementById("expensesChart").getContext("2d");
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: days,
+            datasets: [
+                {
+                    label: "Total",
+                    data: totalAmounts,
+                    backgroundColor: "#007bff",
+                    borderColor: "rgb(0,4,255)",
+                    borderWidth: 1,
+                    reasons: ['', '', '', '', '', '', ''],
+                },
+                {
+                    label: "Highest Expense",
+                    data: highestAmounts,
+                    backgroundColor: "#dc3545",
+                    borderColor: "rgb(255,0,22)",
+                    borderWidth: 1,
+                    reasons: highestReasons,
+                },
+                {
+                    label: "2nd Highest Expense",
+                    data: secondHighestAmounts,
+                    backgroundColor: "#ffcb00",
+                    borderColor: "rgb(255,183,0)",
+                    borderWidth: 1,
+                    reasons: secondHighestReasons,
+                },
+            ],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.dataset.label;
+                            const value = context.parsed.y;
+                            const reason = context.dataset.reasons[context.dataIndex];
+                            return `${label}: ৳${value.toFixed(2)}\n${reason}`;
+                        }
+                    }
+                }
+            }
+        },
+    });
+}
+
+
+
+
+function loadAndRenderMonthlyChart(data) {
+    const months = [];
+    const totalAmounts = [];
+    const highestAmounts = [];
+    const secondHighestAmounts = [];
+    const highestDates = [];
+    const secondHighestDates = [];
+
+    data.expenses.forEach((monthData) => {
+        const monthName = monthData.month;
+        months.push(monthName);
+        totalAmounts.push(monthData.totalAmount);
+
+        // Find the day with the highest and second highest total expenses for the month
+        const sortedDates = monthData.details
+            .reduce((result, detail) => {
+                const date = detail.date;
+                const existing = result.find(item => item.date === date);
+                if (existing) {
+                    existing.totalAmount += detail.amount;
+                } else {
+                    result.push({ date, totalAmount: detail.amount });
+                }
+                return result;
+            }, [])
+            .sort((a, b) => b.totalAmount - a.totalAmount);
+
+        highestAmounts.push(sortedDates[0]?.totalAmount || 0);
+        secondHighestAmounts.push(sortedDates[1]?.totalAmount || 0);
+        highestDates.push(sortedDates[0]?.date || "");
+        secondHighestDates.push(sortedDates[1]?.date || "");
+    });
+
+    // Create a bar chart for monthly data using Chart.js
+    const ctx = document.getElementById("monthlyChart").getContext("2d");
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: months,
+            datasets: [
+                {
+                    label: "Total",
+                    data: totalAmounts,
+                    backgroundColor: "#007bff",
+                    borderColor: "rgb(0,4,255)",
+                    borderWidth: 1,
+                },
+                {
+                    label: "Highest Expense",
+                    data: highestAmounts,
+                    backgroundColor: "#dc3545",
+                    borderColor: "rgb(255,0,22)",
+                    borderWidth: 1,
+                },
+                {
+                    label: "2nd Highest Expense",
+                    data: secondHighestAmounts,
+                    backgroundColor: "#ffcb00",
+                    borderColor: "rgb(255,183,0)",
+                    borderWidth: 1,
+                },
+            ],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const label = context.dataset.label;
+                            const value = context.parsed.y;
+                            let date;
+                            if (label === "Highest Expense Day (৳)") {
+                                date = highestDates[context.dataIndex];
+                            } else if (label === "Second Highest Expense Day (৳)") {
+                                date = secondHighestDates[context.dataIndex];
+                            }
+                            if (date) {
+                                const dateObj = new Date(date);
+                                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                                date = dateObj.toLocaleDateString('en-US', options);
+                            }
+                            return `${label}: ৳${value.toFixed(2)}\nDate: ${date || ""}`;
+                        },
+                    },
+                },
+            },
+        },
+    });
+}
+
+
+
 
 
 
