@@ -55,6 +55,9 @@ def index():
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    user_id = session.get('user_id')
+    if not user_id:
+        return render_template('login.html')
     return render_template('dashboard.html')
 
 
