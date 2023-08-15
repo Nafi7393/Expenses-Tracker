@@ -1,17 +1,18 @@
-import bcrypt
+import bcrypt, os, calendar
 from flask import Flask, render_template, request, jsonify, url_for, redirect, session
 from flask_login import LoginManager, UserMixin, logout_user, login_required, login_user
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
 from sqlalchemy import func, desc
-import calendar
+from dotenv import load_dotenv
 from dateutil.relativedelta import relativedelta
+
+load_dotenv()
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key_here'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expenses.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://Nafi7393:QB36IyRKkMnO@ep-sweet-sun-25655317.us-east-2.aws.neon.tech/expenses_tracker'
+app.config['SECRET_KEY'] = os.getenv("SUPER_SECRET_KEY")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -361,7 +362,9 @@ def remove_expense(expense_id, user_id):
 
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
+    app.run(debug=False, host='0.0.0.0')
 
-    # app.run(debug=True, host='0.0.0.0')
+
+    # to make clean database
+    # with app.app_context():
+    #     db.create_all()
