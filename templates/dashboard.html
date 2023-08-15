@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.24.0/dist/date-fns.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="header-contain">
@@ -37,12 +39,22 @@
             <h2>Last 7 Days' Expenses</h2>
             <ul id="last-7-days-list"></ul>
         </div>
+
+        <div class="chart-container">
+            <canvas id="expensesChart"></canvas>
+        </div>
+
         <div class="all-months">
             <h2>All Months' Expenses</h2>
             <ul id="all-months-list">
                 <!-- The list items for each month will be dynamically added here -->
             </ul>
         </div>
+
+        <div class="chart-container">
+            <canvas id="monthlyChart"></canvas>
+        </div>
+
         <div class="selected-month-expenses" id="selected-month-header-id">
             <h2 id="selected-month-header"></h2>
             <ul id="selected-month-expenses-list"></ul>
