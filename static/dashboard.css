@@ -182,10 +182,12 @@ li:hover {
 }
 
 .today-expenses,
-.last-7-days,
-.all-months,
-.selected-month-expenses {
+.selected-month-expenses{
   margin-bottom: 100px;
+}
+
+.chart-container {
+  margin-bottom: 150px;
 }
 
 
