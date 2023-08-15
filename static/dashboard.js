@@ -474,7 +474,7 @@ function loadAndRenderWeeklyBarChart(data) {
                     reasons: highestReasons,
                 },
                 {
-                    label: "2nd Highest Expense",
+                    label: "Second Highest",
                     data: secondHighestAmounts,
                     backgroundColor: "#ffcb00",
                     borderColor: "rgb(255,183,0)",
@@ -563,7 +563,7 @@ function loadAndRenderMonthlyChart(data) {
                     borderWidth: 1,
                 },
                 {
-                    label: "2nd Highest Expense",
+                    label: "Second Highest",
                     data: secondHighestAmounts,
                     backgroundColor: "#ffcb00",
                     borderColor: "rgb(255,183,0)",
@@ -587,7 +587,7 @@ function loadAndRenderMonthlyChart(data) {
 
                             if (label === "Highest Expense") {
                                 date = highestDates[context.dataIndex];
-                            } else if (label === "2nd Highest Expense") {
+                            } else if (label === "Second Highest") {
                                 date = secondHighestDates[context.dataIndex];
                             }
 
