@@ -16,7 +16,7 @@ Expense Tracker is a web application built using Flask, HTML, CSS, and JavaScrip
 
 - **Front-end:** HTML, CSS, JavaScript, Chart.js
 - **Back-end:** Flask (Python)
-- **Database:** SQLite (for demonstration purposes; can be extended to other databases)
+- **Database:** PostgreSQL (for demonstration purposes; can be extended to other databases)
 - **Session Management:** Flask-Session (for user session management)
 
 
