@@ -284,7 +284,7 @@ def get_month_expenses(user_id, month_name):
             .distinct().all()
 
         # Define the maximum number of months to keep
-        max_months_to_keep = 6
+        max_months_to_keep = 18
 
         # Check if the number of unique months is greater than the maximum allowed
         if len(unique_months) > max_months_to_keep:
